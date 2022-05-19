@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: Sequelize.UUIDV4,
     },
     id_peg: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'pegawai',

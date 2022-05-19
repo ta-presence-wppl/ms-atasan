@@ -57,11 +57,39 @@ class AbsentControllers {
     getAllAbsent(data) {
         return models.presensi.findAll({
             attributes: {
-                exclude: ['id_peg', 'id_pre']
+                exclude: ['id_peg', 'id_pre'],
+                include: ['pegawai.nama']
             },
+            include: [
+                { 
+                    model:models.pegawai,
+                    attributes: ['nama'],
+                    required:true
+                },
+            ],
             where: {
-                id_peg: data.id_peg,
+                id_peg: sequelize.literal("pegawai.id_peg IN (SELECT id_peg FROM pegawai WHERE id_atasan =" + data.id_peg + ")"),
                 tanggal: sequelize.literal("EXTRACT(year FROM tanggal) = EXTRACT(year FROM date('" + data.date + "')) and EXTRACT(month FROM tanggal) = EXTRACT(month FROM date('" + data.date + "'))")
+            },
+        })
+    }
+    
+    getAllIzin(data) {
+        return models.izin.findAll({
+            attributes: {
+                exclude: ['id_peg', 'id_izin'],
+                include: ['pegawai.nama']
+            },
+            include: [
+                { 
+                    model:models.pegawai,
+                    attributes: ['nama'],
+                    required:true
+                },
+            ],
+            where: {
+                id_peg: sequelize.literal("pegawai.id_peg IN (SELECT id_peg FROM pegawai WHERE id_atasan =" + data.id_peg + ")"),
+                tgl_awal: sequelize.literal("EXTRACT(year FROM tgl_awal) = EXTRACT(year FROM date('" + data.date + "')) and EXTRACT(month FROM tgl_awal) = EXTRACT(month FROM date('" + data.date + "'))")
             },
         })
     }

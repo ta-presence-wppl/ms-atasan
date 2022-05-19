@@ -34,9 +34,9 @@ router.get('/', validator.validate("check_history"), validator.verify, (req, res
         time: moment().format('kk:mm:ssZ'),
         date: moment(req.query.date).format('YYYY-MM-D')
     }
-    new AbsentControllers().getAllAbsent(myDate).then(x => {
+    new AbsentControllers().getAllIzin(myDate).then(x => {
         res.json({
-            message: 'Sukses GET Absen History',
+            message: 'Sukses GET Izin History',
             data: x,
             date: moment().format()
         })
