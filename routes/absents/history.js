@@ -35,6 +35,10 @@ router.get('/', validator.validate("check_history"), validator.verify, (req, res
         date: moment(req.query.date).format('YYYY-MM-D')
     }
     new AbsentControllers().getAllAbsent(myDate).then(x => {
+        for (const [key, value] of Object.entries(x)) {
+            value['foto_msk'] = value.foto_msk != null ? 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/in/' + value.foto_msk : null;
+            value['foto_plg'] = value.foto_plg != null ? 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-absent/images/out/' + value.foto_plg : null;
+        }
         res.json({
             message: 'Sukses GET Absen History',
             data: x,

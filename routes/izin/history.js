@@ -35,6 +35,9 @@ router.get('/', validator.validate("check_history"), validator.verify, (req, res
         date: moment(req.query.date).format('YYYY-MM-D')
     }
     new AbsentControllers().getAllIzin(myDate).then(x => {
+        for (const [key, value] of Object.entries(x)) {
+            value['foto'] = value.foto != null ? 'https://api-ta-presence-gateaway.behindrailstudio.com/storage/ms-izin/images/izin/' + value.foto : null;
+        }
         res.json({
             message: 'Sukses GET Izin History',
             data: x,
