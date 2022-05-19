@@ -13,7 +13,7 @@ module.exports = {
       env_production: {
         "NODE_ENV": "production",
         "PORT": 1201,
-        "DATABASE_CONN": "postgres://postgres:Tikomdik2019@192.168.100.25:5432/temporary_ta_presensi",
+        "DATABASE_CONN": "postgres://pengembang:pemulateknologi@182.253.188.180:5432/db_presensi",
         "JWT_CONF_TOKEN": "0e186e6fc639e92528d02613b8cd2baa"
       }
     }],
